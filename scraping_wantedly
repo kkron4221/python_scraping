@@ -1,0 +1,45 @@
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+import time, requests, bs4
+
+wanted_url = 'https://www.wantedly.com/projects'
+
+browser = webdriver.Firefox()
+browser.get(wanted_url)
+
+login_tag = browser.find_element_by_class_name('ui-show-modal')
+login_tag.click()
+
+email_info = ""
+passwd_info = ''
+email = browser.find_element_by_id('login_user_email')
+passwd = browser.find_element_by_id('login_user_password')
+email.send_keys(email_info)
+passwd.send_keys(passwd_info)
+login_btn = browser.find_elements_by_name('commit')
+login_btn[0].click()
+
+job_select_btn = browser.find_element_by_class_name('BasicSelectorAbstract--selector-name')
+job_select_btn.click()
+
+job_select = browser.find_elements_by_class_name('BasicSelectorAbstract--label')
+job_select[0].click()
+time.sleep(5)
+
+job_word = browser.find_element_by_class_name('SearchBox--search')
+job_word.send_keys('python')
+job_word.send_keys(Keys.ENTER)
+
+job_word_second = browser.find_element_by_class_name('SearchBox--search')
+job_word_second.send_keys('未経験')
+job_word_second.send_keys(Keys.ENTER)
+
+time.sleep(5)
+company_tag = browser.find_elements_by_class_name('project-index-single-inner')
+company_tag[0].click()
+
+campany_url = browser.current_url
+# get text
+
+
+browser.close()
